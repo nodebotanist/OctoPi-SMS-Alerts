@@ -1,0 +1,1 @@
+rsync -a ./ pi@octopi.local:~/octopi-SMS-Alerts
