@@ -13,6 +13,11 @@ client.on('connection', function () {
 })
 client.on('data', function (msg) {
   console.log(msg)
+  if ("current" in msg) {
+    console.log('current: ', msg)
+  } else if ( "event" in msg ) {
+    console.log('event: ', msg)
+  }
 })
 client.on('error', function (e) {
   console.log(e)
