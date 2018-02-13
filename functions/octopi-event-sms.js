@@ -1,6 +1,7 @@
 exports.handler = function(context, event, callback) {
-	let twiml = new Twilio.twiml.SMSResponse();
-  	twiml.to('15129680474');
-	twiml.message("Hello World");
+	let twiml = new Twilio.twiml.MessagingResponse({
+    	to: '**********'
+    });
+	twiml.message("OctoPi 3D printer event: " + event.type);
 	callback(null, twiml);
 };
