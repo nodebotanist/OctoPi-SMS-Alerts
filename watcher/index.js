@@ -20,8 +20,21 @@ client.on('data', function (msg) {
   } else if ( "event" in msg ) {
     console.log('event: ', msg)
 
+    const STATE_MESSAGES = {
+      'Disconnected': 'The printer has disconnected from the OctoPrint server!',
+      'Error': 'OctoPrint server reporting printer error: ' + msg.payload.error,
+      'PrintStarted': 'OctoPrint reporting a print has started: ' + msg.payload.name,
+      'PrintFailed': 'OctoPrint reporting a failed print: ' + msg.payload.name,
+      'PrintDone': message = 'OctoPrint reporting a completed print: ' + msg.payload.name,
+      'PrintCancelled': 'OctoPrint reporting a cancelled print: ' + msg.payload.name,
+      'PrintPaused': 'OctoPrint reporting print paused: ' + msg.payload.name, 
+      'PrintResumed':  'OctoPrint reporting print resumed: ' + msg.payload.name  
+    }
+
+    let message = STATE_MESSAGES[msg.event.type] || ('Octoprint event: ' + msg.event.type)
+
     twilioClient.messages.create({
-      body: 'Octoprint 3d printer event: ' + msg.event.type,
+      body: message,
       to: process.env.YOUR_PHONE_NUMBER,
       from: process.env.TWILIO_PHONE_NUMBER
     })
